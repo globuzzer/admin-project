@@ -14,6 +14,9 @@
     border: none;
     outline: none;
 }
+.coloured{
+    background: #ffffff;
+}
 .member_join:hover,
 .member_join:focus {
     filter: brightness(110%);

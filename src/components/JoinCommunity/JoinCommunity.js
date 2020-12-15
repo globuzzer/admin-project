@@ -15,9 +15,11 @@ import Chloe from "../../assets/Chloe.png";
 import Jonathan from "../../assets/Jonathan.png";
 import Chloé from "../../assets/Asya.png";
 import { FaJournalWhills } from "react-icons/fa";
+import GifCard from "../GifCard/GifCard";
 
 export const JoinCommunity = () => {
   const { width } = GetWindowDimension();
+
   const Join = () => (
     <section className="join">
       <div className="join_video_container">
@@ -37,7 +39,6 @@ export const JoinCommunity = () => {
           <track kind="captions" />
         </video>
       </div>
-
       <div className="join_info">
         <div id="join_title" className={commune.tooltip}>
           Connect with expats and locals around the world
@@ -51,7 +52,7 @@ export const JoinCommunity = () => {
               B <img src={arrow} alt="arrow" />
             </p>
             <div>
-              <input type="color" />
+              <input type="color" className="coloured" defaultValue="#C4C4C4" />
             </div>
             <img src={align} alt="align-text" />
           </span>
@@ -69,8 +70,10 @@ export const JoinCommunity = () => {
           </Link>
         </button>
       </div>
+      <GifCard />
     </section>
   );
+ 
 
   const JoinMobile = () => (
     <div>
@@ -115,5 +118,6 @@ export const JoinCommunity = () => {
       </div>
     </div>
   );
+ 
   return <>{width > 1100 ? <Join /> : <JoinMobile />}</>;
 };
