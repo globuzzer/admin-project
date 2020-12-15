@@ -6,11 +6,15 @@ import MemberNearYouData from "../../Data/MemberNearYouData";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
 import { GetWindowDimension } from "../../utils/GetWindowDimension";
 import "./style.css";
+import commune from "./commune.module.css";
+import align from "./../../assets/align.svg";
+import arrow from "./../../assets/arrowdown.svg";
 
 import Gunjan from "../../assets/Gunjan.png";
 import Chloe from "../../assets/Chloe.png";
 import Jonathan from "../../assets/Jonathan.png";
 import Chloé from "../../assets/Asya.png";
+import { FaJournalWhills } from "react-icons/fa";
 
 export const JoinCommunity = () => {
   const { width } = GetWindowDimension();
@@ -35,7 +39,22 @@ export const JoinCommunity = () => {
       </div>
 
       <div className="join_info">
-        <p id="join_title">Connect with expats and locals around the world</p>
+        <div id="join_title" className={commune.tooltip}>
+          Connect with expats and locals around the world
+          {/* Creating edit box for text*/}
+          <span className={commune.tooltiptext}>
+            <div className={commune.arrowDown} />
+            <p>
+              14 <img src={arrow} alt="arrow" />
+            </p>
+            <p>
+              B <img src={arrow} alt="arrow" />
+            </p>
+            <input type="color" />
+            <img src={align} alt="align-text" />
+          </span>
+        </div>
+
         <p id="join_header">More than 180K expats and 32K members globally</p>
         <div className="join_member_list">
           {MemberNearYouData.map((memberData, index) => (
@@ -50,6 +69,7 @@ export const JoinCommunity = () => {
       </div>
     </section>
   );
+
   const JoinMobile = () => (
     <div>
       <SectionHeader header="Top members to meet" />
