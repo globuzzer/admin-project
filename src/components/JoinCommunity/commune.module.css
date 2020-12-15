@@ -121,10 +121,6 @@
 
 /* imported from text-edit-style */
 
-.title p:after {
-  content: "";
-}
-
 .arrowDown {
   cursor: pointer;
 }
@@ -195,7 +191,7 @@ input[type="color"]::-webkit-color-swatch {
   display: inline-block;
 }
 
-.tooltip .tooltiptext {
+/* .tooltip .tooltiptext {
   width: 187.6px;
   height: 40px;
   left: 50%;
@@ -215,17 +211,36 @@ input[type="color"]::-webkit-color-swatch {
   transition: opacity 0.3s;
   visibility: hidden;
   position: absolute;
+} */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 187.6px;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 }
-
 
 .tooltip .tooltiptext::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
+  margin-left: -15px;
   border-style: solid;
+  border-width: 15px;
+  height: 25px;
   border-color: rgb(202, 196, 196) transparent transparent transparent;
 }
 

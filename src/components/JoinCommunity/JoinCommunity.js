@@ -50,7 +50,9 @@ export const JoinCommunity = () => {
             <p>
               B <img src={arrow} alt="arrow" />
             </p>
-            <input type="color" />
+            <div>
+              <input type="color" />
+            </div>
             <img src={align} alt="align-text" />
           </span>
         </div>
