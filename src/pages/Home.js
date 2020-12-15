@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Home.css";
 import { FiSearch } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
@@ -21,7 +21,6 @@ const Home = () => {
   const [query, setQuery] = useState("");
   const [moreJoinCity, setMoreJoinCity] = useState(false);
   const [joinCity, setJoinCity] = useState([]);
-  const [articles, setArticles] = useState([]);
   const [showFeature, setShowFeature] = useState(false);
 
   //state for homeValue
