@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { MemberNearYou } from "../MemberNearYou/MemberNearYou";
@@ -18,9 +18,12 @@ import { FaJournalWhills } from "react-icons/fa";
 import GifCard from "../GifCard/GifCard";
 import FontSizeDropdown from "../GifCard/FontDropdown/FontSizeDropdown";
 import FontWeight from "../GifCard/FontDropdown/FontWeight";
+// import { EditContext } from "../Editcontainer/EditContainer";
 
-export const JoinCommunity = () => {
+export const JoinCommunity = ({ contentEditable }) => {
   const { width } = GetWindowDimension();
+
+  // const { handleEditMode, editMode, editStyle } = useContext(EditContext);
 
   const Join = () => (
     <section className="join">
@@ -42,7 +45,12 @@ export const JoinCommunity = () => {
         </video>
       </div>
       <div className="join_info">
-        <div id="join_title" className={commune.tooltip}>
+        <div
+          id="join_title"
+          className={commune.tooltip}
+          contentEditable={contentEditable}
+          suppressContentEditableWarning="true"
+        >
           Connect with expats and locals around the world
           {/* Creating edit box for text*/}
           <span className={commune.tooltiptext}>
@@ -73,6 +81,7 @@ export const JoinCommunity = () => {
         </button>
       </div>
       <GifCard />
+      {/* <EditContext /> */}
     </section>
   );
 
