@@ -1,0 +1,5 @@
+.numberbox, .fontbox {
+  outline: none;
+  border: none;
+  font-size: 18px;
+}

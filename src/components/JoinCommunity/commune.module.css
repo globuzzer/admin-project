@@ -191,29 +191,8 @@ input[type="color"]::-webkit-color-swatch {
   display: inline-block;
 }
 
-/* .tooltip .tooltiptext {
-  width: 187.6px;
-  height: 40px;
-  left: 50%;
-  top: 300px;
-  border: 1px solid rgb(172, 171, 171);
-  background: #ffffff;
-  border-radius: 6px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-size: 18px;
-  padding: 5px 10px;
-  z-index: 1;
-  bottom: 125%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  visibility: hidden;
-  position: absolute;
-} */
 .tooltip .tooltiptext {
-  visibility: hidden;
+  /* visibility: hidden; */
   width: 187.6px;
   font-size: 18px;
   display: flex;
@@ -244,7 +223,7 @@ input[type="color"]::-webkit-color-swatch {
   border-color: rgb(202, 196, 196) transparent transparent transparent;
 }
 
-.tooltip:hover .tooltiptext {
+.tooltip .tooltiptext {
   visibility: visible;
   opacity: 1;
 }

@@ -16,6 +16,8 @@ import Jonathan from "../../assets/Jonathan.png";
 import Chloé from "../../assets/Asya.png";
 import { FaJournalWhills } from "react-icons/fa";
 import GifCard from "../GifCard/GifCard";
+import FontSizeDropdown from "../GifCard/FontDropdown/FontSizeDropdown";
+import FontWeight from "../GifCard/FontDropdown/FontWeight";
 
 export const JoinCommunity = () => {
   const { width } = GetWindowDimension();
@@ -45,12 +47,12 @@ export const JoinCommunity = () => {
           {/* Creating edit box for text*/}
           <span className={commune.tooltiptext}>
             <div className={commune.arrowDown} />
-            <p>
-              14 <img src={arrow} alt="arrow" />
-            </p>
-            <p>
-              B <img src={arrow} alt="arrow" />
-            </p>
+            {/* Font size fontweight change */}
+            <div className="col-sm-4 col-sm-push-4">
+              <FontSizeDropdown />
+              <FontWeight />
+            </div>
+
             <div>
               <input type="color" className="coloured" defaultValue="#C4C4C4" />
             </div>
@@ -73,7 +75,6 @@ export const JoinCommunity = () => {
       <GifCard />
     </section>
   );
- 
 
   const JoinMobile = () => (
     <div>
@@ -118,6 +119,6 @@ export const JoinCommunity = () => {
       </div>
     </div>
   );
- 
+
   return <>{width > 1100 ? <Join /> : <JoinMobile />}</>;
 };
