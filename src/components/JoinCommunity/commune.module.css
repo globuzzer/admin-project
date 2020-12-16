@@ -193,7 +193,8 @@ input[type="color"]::-webkit-color-swatch {
 
 .tooltip .tooltiptext {
   /* visibility: hidden; */
-  width: 187.6px;
+  width: 250px;
+  height: 45px;
   font-size: 18px;
   display: flex;
   justify-content: space-around;
@@ -205,7 +206,7 @@ input[type="color"]::-webkit-color-swatch {
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: -60px;
+  margin-left: -50px;
   opacity: 0;
   transition: opacity 0.3s;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
@@ -213,14 +214,24 @@ input[type="color"]::-webkit-color-swatch {
 
 .tooltip .tooltiptext::after {
   content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -15px;
-  border-style: solid;
-  border-width: 15px;
-  height: 25px;
-  border-color: rgb(202, 196, 196) transparent transparent transparent;
+  /* position: absolute; */
+  /* top: 100%; */
+  /* left: 50%; */
+  /* margin-left: -15px; */
+  /* border-style: solid; */
+  /* border-width: 15px; */
+  /* height: 25px; */
+  /* border-color: rgb(202, 196, 196) transparent transparent transparent; */
+
+    position: absolute;
+    top: 100%;
+    right: 40%;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 26px solid #e4e0e0;
+    
 }
 
 .tooltip .tooltiptext {

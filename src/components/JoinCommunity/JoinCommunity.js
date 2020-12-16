@@ -18,16 +18,17 @@ import { FaJournalWhills } from "react-icons/fa";
 import GifCard from "../GifCard/GifCard";
 import FontSizeDropdown from "../GifCard/FontDropdown/FontSizeDropdown";
 import FontWeight from "../GifCard/FontDropdown/FontWeight";
-// import { EditContext } from "../Editcontainer/EditContainer";
+import { EditContext } from "../../contexts/editContext";
 
 export const JoinCommunity = ({ contentEditable }) => {
   const { width } = GetWindowDimension();
+  const { editStyle } = useContext(EditContext);
 
   // const { handleEditMode, editMode, editStyle } = useContext(EditContext);
 
   const Join = () => (
     <section className="join">
-      <div className="join_video_container">
+      <div className="join_video_container" style={editStyle}>
         <video
           width="100%"
           autoPlay
@@ -51,7 +52,9 @@ export const JoinCommunity = ({ contentEditable }) => {
           contentEditable={contentEditable}
           suppressContentEditableWarning="true"
         >
-          Connect with expats and locals around the world
+          <div style={editStyle}>
+            Connect with expats and locals around the world
+          </div>
           {/* Creating edit box for text*/}
           <span className={commune.tooltiptext}>
             <div className={commune.arrowDown} />
@@ -68,7 +71,9 @@ export const JoinCommunity = ({ contentEditable }) => {
           </span>
         </div>
 
-        <p id="join_header">More than 180K expats and 32K members globally</p>
+        <p id="join_header" style={editStyle}>
+          More than 180K expats and 32K members globally
+        </p>
         <div className="join_member_list">
           {MemberNearYouData.map((memberData, index) => (
             <MemberNearYou memberData={memberData} key={index} />

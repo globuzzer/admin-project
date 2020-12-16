@@ -1,31 +1,53 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import "../css/Home.css";
 import { FiSearch } from "react-icons/fi";
 import LazyLoad from "react-lazyload";
 import { HomeValue } from "../components/HomeValue/HomeValue";
 import { SectionHeader } from "../components/SectionHeader/SectionHeader";
-import { JoinCity } from "../components/JoinCity/JoinCity";
-import AuxServicesData from "../Data/AuxServicesData";
-import AuxService from "../components/AuxService/AuxService";
+import AuxServiceSection from "../components/AuxService/AuxServiceSection";
 import { OwnSection } from "../components/OwnSection/OwnSection";
 import { Footer } from "../components/Footer/Footer";
 import { SearchCity } from "../components/SearchCity/SearchCity";
 import { JoinCommunity } from "../components/JoinCommunity/JoinCommunity";
-import { RequestNewCity } from "../components/RequestNewCity/RequestNewCity";
-import { Link } from "react-router-dom";
-import { firestore } from "../utils/firebase.utils";
+import JoinCitySection from "../components/JoinCity/JoinCitySection";
 import FeaturedArticlePage from "../components/FeaturedArticle/FeaturedArticlePage";
+import { EditContext } from "../contexts/editContext";
+import BannerForm from "./Admin/BannerForm/BannerForm";
 import FeatureBox from "../components/FeatureBox/FeatureBox";
+import { firestore } from "./../utils/firebase.utils";
 
-const Home = () => {
+const Home = ({ contentEditable }) => {
   const [query, setQuery] = useState("");
-  const [moreJoinCity, setMoreJoinCity] = useState(false);
-  const [joinCity, setJoinCity] = useState([]);
-  const [articles, setArticles] = useState([]);
   const [showFeature, setShowFeature] = useState(false);
-
   //state for homeValue
   const [homeData, setHomeData] = useState([]);
+  let place = useRef("");
+
+  const {
+    editStyle,
+    places,
+    handleShowForm,
+    setCurrentPlace,
+    handleChangeText,
+    fetchedTexts,
+    setCurrentText,
+  } = useContext(EditContext);
+
+  // select the clicked 'place'
+  const handleClick = (e) => {
+    const newPlace = places.filter((place) => {
+      return place.id === e.target.name;
+    });
+    setCurrentPlace(newPlace[0]);
+  };
+
+  // select the clicked 'text'
+  const getCurrentText = (e) => {
+    const newText = fetchedTexts.filter((text) => {
+      return text.id === e.target.id;
+    });
+    setCurrentText(newText[0]);
+  };
 
   //fetching features data from firebase firestore
   useEffect(() => {
@@ -44,22 +66,6 @@ const Home = () => {
     };
     getData();
   }, []);
-  console.log(homeData);
-
-  useEffect(() => {
-    firestore
-      .collection("cities")
-      .orderBy("name")
-      .limit(11)
-      .onSnapshot((snapshot) => {
-        const newCity = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setJoinCity(newCity);
-        // console.log(newCity);
-      });
-  }, []);
 
   //toggle feature box function
   const handleShowFeature = (index) => {
@@ -68,19 +74,46 @@ const Home = () => {
 
   return (
     <div className="home-page">
+      <BannerForm />
       <LazyLoad>
         <section className="section_header" id="section_header">
-          <p id="header_1" className="content-editable">
-            The global community of locals and expats
-          </p>
-          <p id="header_2">Commplete guidance when relocating to a new city</p>
+          <div onClick={handleShowForm} className="headers">
+            {fetchedTexts.map((t) => (
+              <p
+                key={t.id}
+                id={t.id}
+                name={t.id}
+                contentEditable={contentEditable}
+                style={{ ...editStyle, ...t.style }}
+                suppressContentEditableWarning="true"
+                onBlur={handleChangeText}
+                onClick={handleShowForm}
+                onFocus={getCurrentText}
+              >
+                {t.content}
+              </p>
+            ))}
+          </div>
           <SearchCity />
-          <p id="header_suggestion">
-            Maybe{" "}
-            <a href="https://globuzzer.mn.co/groups/195831/feed">Stockholm</a>,
-            <Link to="/section">Helsinki</Link> or{" "}
-            <a href="https://globuzzer.mn.co/groups/195834/feed">Paris</a>?
-          </p>
+          <div>
+            <p id="header_suggestion" onClick={handleShowForm}>
+              Maybe{" "}
+              {places.map((p) => (
+                <a
+                  href={p.link}
+                  key={p.id}
+                  name={p.id}
+                  contentEditable={contentEditable}
+                  suppressContentEditableWarning="true"
+                  style={{ ...editStyle, color: p.color }}
+                  ref={place}
+                  onFocus={handleClick}
+                >
+                  {p.text}
+                </a>
+              ))}
+            </p>
+          </div>
         </section>
       </LazyLoad>
       <section className="section_value">
@@ -114,22 +147,7 @@ const Home = () => {
             onChange={(event) => setQuery(event.target.value)}
           />
         </div>
-        <div className="joincity_grid">
-          {joinCity.map((cityData, index) => (
-            <JoinCity cityData={cityData} key={index} />
-          ))}
-          {!moreJoinCity && joinCity.length > 0 && (
-            <JoinCity
-              cityData={{ name: "Explore more cities" }}
-              isViewMore
-              setMoreJoinCity={setMoreJoinCity}
-            />
-          )}
-          {moreJoinCity && joinCity.length > 0 && <RequestNewCity />}
-        </div>
-        <div className="no_item">
-          {joinCity.length === 0 && <RequestNewCity />}
-        </div>
+        <JoinCitySection />
       </section>
       <JoinCommunity />
       <section className="featured_articles" id="featured_articles">
@@ -138,11 +156,7 @@ const Home = () => {
       </section>
       <section className="aux_services" id="aux_services">
         <SectionHeader header="Helpful services" />
-        <div className="aux_list">
-          {AuxServicesData.map(({ name, ...otherProps }) => (
-            <AuxService name={name} key={name} {...otherProps} />
-          ))}
-        </div>
+        <AuxServiceSection />
       </section>
       <OwnSection />
       <Footer />
