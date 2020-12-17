@@ -26,7 +26,7 @@ export const JoinCommunity = ({ contentEditable }) => {
     editStyle,
     communityText,
     setCommunityCurrentText,
-    handleShowForm,
+    handleChangeText,
   } = useContext(EditContext);
 
   // select the clicked 'text'
@@ -57,11 +57,7 @@ export const JoinCommunity = ({ contentEditable }) => {
         </video>
       </div>
       <div className="join_info">
-        <div
-          className={commune.tooltip}
-          contentEditable={contentEditable}
-          suppressContentEditableWarning="true"
-        >
+        <div className={commune.tooltip}>
           {/* Creating edit tooltip box for text*/}
           <span className={commune.tooltiptext}>
             <div className={commune.arrowDown} />
@@ -77,15 +73,18 @@ export const JoinCommunity = ({ contentEditable }) => {
             <img src={align} alt="align-text" />
           </span>
 
-          <div onClick={handleShowForm} className="join_title">
+          <div className="join_title">
             {/* Connect with expats and locals around the world */}
             {communityText.map((comm) => (
               <p
                 key={comm.id}
+                id={comm.id}
                 name={comm.id}
-                onFocus={getCurrentCommunityText}
                 style={{ ...editStyle, ...comm.style }}
-                onClick={handleShowForm}
+                onBlur={handleChangeText}
+                onFocus={getCurrentCommunityText}
+                contentEditable={contentEditable}
+                suppressContentEditableWarning="true"
               >
                 {comm.heading}
               </p>

@@ -149,7 +149,11 @@ const Home = ({ contentEditable }) => {
         </div>
         <JoinCitySection />
       </section>
-      <JoinCommunity />
+      <JoinCommunity
+        onBlur={handleChangeText}
+        contentEditable={contentEditable}
+        suppressContentEditableWarning="true"
+      />
       <section className="featured_articles" id="featured_articles">
         <SectionHeader header="Featured articles" />
         <FeaturedArticlePage />

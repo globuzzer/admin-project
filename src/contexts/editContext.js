@@ -99,7 +99,6 @@ const EditContextProvider = (props) => {
     setCommunityCurrentText({
       ...communityCurrentText,
       heading: e.target.innerText,
-      subhead: e.target.innerText,
       id: e.target.id,
     });
   };
