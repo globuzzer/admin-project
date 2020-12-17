@@ -39,11 +39,10 @@ export const HomeValue = ({ homeData, handleShowFeature }) => {
     <Fragment>
       <div className="home_value_container">
         {homeData.map(({ image, title, text, id }, index) => (
-          <div style={editedMode()}>
+          <div style={editedMode()} key={id}>
             <div
               className="home_value"
               onClick={() => handleShowFeature(index)}
-              key={id}
             >
               <img
                 src={image}

@@ -8,7 +8,7 @@ import { GetWindowDimension } from "../../utils/GetWindowDimension";
 import "./style.css";
 import commune from "./commune.module.css";
 import align from "./../../assets/align.svg";
-import arrow from "./../../assets/arrowdown.svg";
+// import arrow from "./../../assets/arrowdown.svg";
 
 import Gunjan from "../../assets/Gunjan.png";
 import Chloe from "../../assets/Chloe.png";
@@ -22,9 +22,20 @@ import { EditContext } from "../../contexts/editContext";
 
 export const JoinCommunity = ({ contentEditable }) => {
   const { width } = GetWindowDimension();
-  const { editStyle } = useContext(EditContext);
+  const {
+    editStyle,
+    communityText,
+    setCommunityCurrentText,
+    handleShowForm,
+  } = useContext(EditContext);
 
-  // const { handleEditMode, editMode, editStyle } = useContext(EditContext);
+  // select the clicked 'text'
+  const getCurrentCommunityText = (e) => {
+    const newCommunityText = communityText.filter((community) => {
+      return community.id === e.target.id;
+    });
+    setCommunityCurrentText(newCommunityText[0]);
+  };
 
   const Join = () => (
     <section className="join">
@@ -47,15 +58,11 @@ export const JoinCommunity = ({ contentEditable }) => {
       </div>
       <div className="join_info">
         <div
-          id="join_title"
           className={commune.tooltip}
           contentEditable={contentEditable}
           suppressContentEditableWarning="true"
         >
-          <div style={editStyle}>
-            Connect with expats and locals around the world
-          </div>
-          {/* Creating edit box for text*/}
+          {/* Creating edit tooltip box for text*/}
           <span className={commune.tooltiptext}>
             <div className={commune.arrowDown} />
             {/* Font size fontweight change */}
@@ -69,11 +76,30 @@ export const JoinCommunity = ({ contentEditable }) => {
             </div>
             <img src={align} alt="align-text" />
           </span>
-        </div>
 
-        <p id="join_header" style={editStyle}>
-          More than 180K expats and 32K members globally
-        </p>
+          <div onClick={handleShowForm} className="join_title">
+            {/* Connect with expats and locals around the world */}
+            {communityText.map((comm) => (
+              <p
+                key={comm.id}
+                name={comm.id}
+                onFocus={getCurrentCommunityText}
+                style={{ ...editStyle, ...comm.style }}
+                onClick={handleShowForm}
+              >
+                {comm.heading}
+              </p>
+            ))}
+          </div>
+        </div>
+        {/* <div style={editStyle}>
+          {communityText.map((sub) => (
+            <p id="join_header" key={sub.id} >
+              {sub.subhead}
+            </p>
+          ))}
+        </div> */}
+
         <div className="join_member_list">
           {MemberNearYouData.map((memberData, index) => (
             <MemberNearYou memberData={memberData} key={index} />

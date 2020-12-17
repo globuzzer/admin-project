@@ -441,18 +441,27 @@
     justify-content: center;
 }
 
-#join_title {
+.join_title p:first-child{
     font-style: normal;
     font-weight: 600;
     font-size: 48px;
     line-height: 64px;
     color: #555555;
-    margin-bottom: 69px;
+    /* margin-bottom: 69px; */
     width: 847px;
-    height: 106px;
+    /* height: 106px; */
     text-align: left;
 }
-
+.join_title p:nth-child(2){
+    margin-bottom: 29px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    color: #555555;
+    border-color: 1px solid red;
+}
+/* 
 #join_header {
     margin-bottom: 29px;
     font-style: normal;
@@ -460,7 +469,7 @@
     font-size: 24px;
     line-height: 36px;
     color: #555555;
-}
+} */
 
 .join_button {
     width: 167px;
@@ -480,6 +489,7 @@
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 65px;
+    /* margin-top: 2rem; */
 }
 
 .featured_articles {
