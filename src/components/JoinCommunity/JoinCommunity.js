@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { MemberNearYou } from "../MemberNearYou/MemberNearYou";
@@ -39,22 +39,27 @@ export const JoinCommunity = ({ contentEditable }) => {
 
   const Join = () => (
     <section className="join">
-      <div className="join_video_container" style={editStyle}>
-        <video
-          width="100%"
-          autoPlay
-          playsInline
-          loop
-          muted
-          poster="https://www.mightynetworks.com/wp-content/themes/_mn2018/img/video-home-page-poster-new.png"
-          className="video"
-        >
-          <source
-            src="https://staging1.globuzzer.com/globuzzer_Liu/pages/vid.mp4"
-            type="video/mp4"
-          />
-          <track kind="captions" />
-        </video>
+      <div className="join_video_container">
+        {communityText.reduce((currentValue, video) => {
+          return (
+            <video
+              key={video.id}
+              id={video.id}
+              name={video.id}
+              style={{ ...editStyle, ...video.style }}
+              width="100%"
+              autoPlay
+              playsInline
+              loop
+              muted
+              poster="https://www.mightynetworks.com/wp-content/themes/_mn2018/img/video-home-page-poster-new.png"
+              className="video"
+            >
+              <source src={video.gif} type="video/mp4" />
+              <track kind="captions" />
+            </video>
+          );
+        }, "")}
       </div>
       <div className="join_info">
         <div className={commune.tooltip}>

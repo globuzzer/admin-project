@@ -1,7 +1,43 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import edit from "./gift.module.css";
+import { app, firestore } from "../../utils/firebase.utils";
 
-const GifCard = () => {
+const GifCard = ({ communityText }) => {
+  //state for gifs
+  const [videos, setVideos] = useState(null);
+
+  //uploading videos files on firestore
+  const onVideoChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = app.storage().ref();
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    setVideos(await fileRef.getDownloadURL());
+    console.log("Uploaded video", file.name);
+    // fileRef.put(file).then(() => {
+    //   console.log("Uploaded video", file.name);
+    // });
+  };
+
+  //updating video in firestore
+  const updateVideoItem = (id) => {
+    firestore.collection("community").doc("nGnBWSPlbHHSCqv7I8Lw").update({
+      gif: videos,
+    });
+  };
+  //update video content
+  const updateVideoValue = () => {
+    // console.log("Updated");
+    const newVideo = { ...communityText };
+    const id = newVideo.id;
+    newVideo.gif = videos;
+    setVideos(newVideo);
+    // console.log("newVideo: ", newVideo);
+    updateVideoItem(id);
+  };
+  const cancelVideoValue = () => {
+    console.log("Cancelled");
+  };
   return (
     <Fragment>
       <div className={edit.place}>
@@ -12,15 +48,22 @@ const GifCard = () => {
             GIF.
           </p>
           <div className={edit.upload}>
-            <input type="file" name="images" />
-            <button className={edit.btn} accept="video/*,.gif">
-              Upload gif
-            </button>
+            <input
+              type="file"
+              name="images"
+              accept="video/*,.gif"
+              onChange={onVideoChange}
+            />
+            <button className={edit.btn}>Upload gif</button>
           </div>
         </div>
         <div className={edit.command}>
-          <p id="apply">Apply</p>
-          <p id="cancel">Cancel</p>
+          <p id="apply" onClick={updateVideoValue}>
+            Apply
+          </p>
+          <p id="cancel" onClick={cancelVideoValue}>
+            Cancel
+          </p>
         </div>
       </div>
     </Fragment>

@@ -16,7 +16,7 @@ import BannerForm from "./Admin/BannerForm/BannerForm";
 import FeatureBox from "../components/FeatureBox/FeatureBox";
 import { firestore } from "./../utils/firebase.utils";
 
-const Home = ({ contentEditable }) => {
+const Home = ({ contentEditable, getCurrentCommunityText }) => {
   const [query, setQuery] = useState("");
   const [showFeature, setShowFeature] = useState(false);
   //state for homeValue
@@ -31,6 +31,8 @@ const Home = ({ contentEditable }) => {
     handleChangeText,
     fetchedTexts,
     setCurrentText,
+    communityText,
+    handleCommunityChangeText,
   } = useContext(EditContext);
 
   // select the clicked 'place'
@@ -150,8 +152,9 @@ const Home = ({ contentEditable }) => {
         <JoinCitySection />
       </section>
       <JoinCommunity
-        onBlur={handleChangeText}
+        onBlur={handleCommunityChangeText}
         contentEditable={contentEditable}
+        onFocus={getCurrentCommunityText}
         suppressContentEditableWarning="true"
       />
       <section className="featured_articles" id="featured_articles">

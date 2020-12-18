@@ -94,7 +94,9 @@ const EditContextProvider = (props) => {
       content: e.target.innerText,
       id: e.target.id,
     });
-
+  };
+  // change handler for text
+  const handleCommunityChangeText = (e) => {
     //fetched data update for Join Community
     setCommunityCurrentText({
       ...communityCurrentText,
@@ -158,6 +160,7 @@ const EditContextProvider = (props) => {
         setCurrentText,
         communityCurrentText,
         setCommunityCurrentText,
+        handleCommunityChangeText,
       }}
     >
       {props.children}
