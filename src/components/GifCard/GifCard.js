@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import edit from "./gift.module.css";
 import { app, firestore } from "../../utils/firebase.utils";
 
-const GifCard = ({ communityText }) => {
+const GifCard = ({ communityText, setVideoEdit }) => {
   //state for gifs
   const [videos, setVideos] = useState(null);
 
@@ -35,9 +35,13 @@ const GifCard = ({ communityText }) => {
     // console.log("newVideo: ", newVideo);
     updateVideoItem(id);
   };
+
+  //close video upload form
   const cancelVideoValue = () => {
-    console.log("Cancelled");
+    // console.log("Cancelled");
+    setVideoEdit(false);
   };
+
   return (
     <Fragment>
       <div className={edit.place}>

@@ -21,6 +21,11 @@ import FontWeight from "../GifCard/FontDropdown/FontWeight";
 import { EditContext } from "../../contexts/editContext";
 
 export const JoinCommunity = ({ contentEditable }) => {
+  //state for edit video form
+  const [showVideoEdit, setVideoEdit] = useState(false);
+  //toggling edit video form
+  const handleVideoEdit = () => setVideoEdit(true);
+
   const { width } = GetWindowDimension();
   const {
     editStyle,
@@ -39,7 +44,7 @@ export const JoinCommunity = ({ contentEditable }) => {
 
   const Join = () => (
     <section className="join">
-      <div className="join_video_container">
+      <div className="join_video_container" onClick={handleVideoEdit}>
         {communityText.reduce((currentValue, video) => {
           return (
             <video
@@ -96,13 +101,6 @@ export const JoinCommunity = ({ contentEditable }) => {
             ))}
           </div>
         </div>
-        {/* <div style={editStyle}>
-          {communityText.map((sub) => (
-            <p id="join_header" key={sub.id} >
-              {sub.subhead}
-            </p>
-          ))}
-        </div> */}
 
         <div className="join_member_list">
           {MemberNearYouData.map((memberData, index) => (
@@ -115,8 +113,9 @@ export const JoinCommunity = ({ contentEditable }) => {
           </Link>
         </button>
       </div>
-      <GifCard />
-      {/* <EditContext /> */}
+      {showVideoEdit && (
+        <GifCard setVideoEdit={setVideoEdit} communityText={communityText} />
+      )}
     </section>
   );
 
