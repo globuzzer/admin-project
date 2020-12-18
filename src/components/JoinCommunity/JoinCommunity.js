@@ -19,6 +19,7 @@ import GifCard from "../GifCard/GifCard";
 import FontSizeDropdown from "../GifCard/FontDropdown/FontSizeDropdown";
 import FontWeight from "../GifCard/FontDropdown/FontWeight";
 import { EditContext } from "../../contexts/editContext";
+import TextEditForm from "../TextEdistForm/TextEditForm";
 
 export const JoinCommunity = ({ contentEditable }) => {
   //state for edit video form
@@ -28,6 +29,7 @@ export const JoinCommunity = ({ contentEditable }) => {
 
   const { width } = GetWindowDimension();
   const {
+    handleShowForm,
     editStyle,
     communityText,
     setCommunityCurrentText,
@@ -69,10 +71,10 @@ export const JoinCommunity = ({ contentEditable }) => {
       <div className="join_info">
         <div className={commune.tooltip}>
           {/* Creating edit tooltip box for text*/}
-          <span className={commune.tooltiptext}>
-            <div className={commune.arrowDown} />
-            {/* Font size fontweight change */}
-            <div className="col-sm-4 col-sm-push-4">
+          {/* <span className={commune.tooltiptext}>
+            <div className={commune.arrowDown} /> */}
+          {/* Font size fontweight change */}
+          {/* <div className="col-sm-4 col-sm-push-4">
               <FontSizeDropdown />
               <FontWeight />
             </div>
@@ -81,7 +83,8 @@ export const JoinCommunity = ({ contentEditable }) => {
               <input type="color" className="coloured" defaultValue="#C4C4C4" />
             </div>
             <img src={align} alt="align-text" />
-          </span>
+          </span> */}
+          <TextEditForm />
 
           <div className="join_title">
             {/* Connect with expats and locals around the world */}
@@ -93,6 +96,7 @@ export const JoinCommunity = ({ contentEditable }) => {
                 style={{ ...editStyle, ...comm.style }}
                 onBlur={handleChangeText}
                 onFocus={getCurrentCommunityText}
+                onClick={handleShowForm}
                 contentEditable={contentEditable}
                 suppressContentEditableWarning="true"
               >

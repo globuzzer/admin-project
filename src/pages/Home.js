@@ -15,6 +15,7 @@ import { EditContext } from "../contexts/editContext";
 import BannerForm from "./Admin/BannerForm/BannerForm";
 import FeatureBox from "../components/FeatureBox/FeatureBox";
 import { firestore } from "./../utils/firebase.utils";
+import TextEditForm from "../components/TextEdistForm/TextEditForm";
 
 const Home = ({ contentEditable, getCurrentCommunityText }) => {
   const [query, setQuery] = useState("");
@@ -31,7 +32,6 @@ const Home = ({ contentEditable, getCurrentCommunityText }) => {
     handleChangeText,
     fetchedTexts,
     setCurrentText,
-    communityText,
     handleCommunityChangeText,
   } = useContext(EditContext);
 
@@ -77,6 +77,7 @@ const Home = ({ contentEditable, getCurrentCommunityText }) => {
   return (
     <div className="home-page">
       <BannerForm />
+      <TextEditForm />
       <LazyLoad>
         <section className="section_header" id="section_header">
           <div onClick={handleShowForm} className="headers">
@@ -152,6 +153,7 @@ const Home = ({ contentEditable, getCurrentCommunityText }) => {
         <JoinCitySection />
       </section>
       <JoinCommunity
+        // onClick={handleShowForm}
         onBlur={handleCommunityChangeText}
         contentEditable={contentEditable}
         onFocus={getCurrentCommunityText}
