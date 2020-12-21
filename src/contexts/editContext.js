@@ -5,8 +5,14 @@ export const EditContext = createContext();
 const EditContextProvider = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [showForm, setShowForm] = useState(false);
+
+  const [showJoinForm, setShowJoinForm] = useState(false);
+
   const [showTextForm, setShowTextForm] = useState(false);
   const [headerID, setHeaderID] = useState(null);
+
+  const [showJoinTextForm, setShowJoinTextForm] = useState(false);
+  const [headerJoinID, setHeaderJoinID] = useState(null);
 
   const rawPlace = { text: "", color: "", link: "" };
   const rawText = {
@@ -134,6 +140,19 @@ const EditContextProvider = (props) => {
       }
     }
   };
+  const handleJoinShowForm = (e) => {
+    const parent = e.target.parentElement;
+    const sibling = e.target.nextSibling;
+
+    if (editMode) {
+      if (parent.classList.contains("joiners")) {
+        sibling ? setHeaderJoinID(1) : setHeaderJoinID(2);
+        setShowJoinTextForm(true);
+      } else if (parent.nodeName === "P") {
+        setShowJoinForm(true);
+      }
+    }
+  };
 
   return (
     <EditContext.Provider
@@ -161,6 +180,13 @@ const EditContextProvider = (props) => {
         communityCurrentText,
         setCommunityCurrentText,
         handleCommunityChangeText,
+        handleJoinShowForm,
+        showJoinForm,
+        showJoinTextForm,
+        headerJoinID,
+        setShowJoinForm,
+        setShowJoinTextForm,
+        setHeaderJoinID,
       }}
     >
       {props.children}

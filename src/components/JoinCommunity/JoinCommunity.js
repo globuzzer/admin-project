@@ -7,7 +7,7 @@ import { SectionHeader } from "../SectionHeader/SectionHeader";
 import { GetWindowDimension } from "../../utils/GetWindowDimension";
 import "./style.css";
 import commune from "./commune.module.css";
-import align from "./../../assets/align.svg";
+//import align from "./../../assets/align.svg";
 // import arrow from "./../../assets/arrowdown.svg";
 
 import Gunjan from "../../assets/Gunjan.png";
@@ -20,16 +20,23 @@ import FontSizeDropdown from "../GifCard/FontDropdown/FontSizeDropdown";
 import FontWeight from "../GifCard/FontDropdown/FontWeight";
 import { EditContext } from "../../contexts/editContext";
 import TextEditForm from "../TextEdistForm/TextEditForm";
+import TextForm from "./TextForm";
 
 export const JoinCommunity = ({ contentEditable }) => {
   //state for edit video form
   const [showVideoEdit, setVideoEdit] = useState(false);
+  //state for edit text form
+  const [showTextBox, setShowTextBox] = useState(false);
   //toggling edit video form
   const handleVideoEdit = () => setVideoEdit(true);
+  //toggling edit text form
+  const handleTextEdit = () => {
+    setShowTextBox(true)
+  }
 
   const { width } = GetWindowDimension();
   const {
-    handleShowForm,
+    handleJoinShowForm,
     editStyle,
     communityText,
     setCommunityCurrentText,
@@ -46,7 +53,7 @@ export const JoinCommunity = ({ contentEditable }) => {
 
   const Join = () => (
     <section className="join">
-      <div className="join_video_container" onClick={handleVideoEdit}>
+      <div className="join_video_container joiners" onClick={handleVideoEdit}>
         {communityText.reduce((currentValue, video) => {
           return (
             <video
@@ -70,23 +77,11 @@ export const JoinCommunity = ({ contentEditable }) => {
       </div>
       <div className="join_info">
         <div className={commune.tooltip}>
-          {/* Creating edit tooltip box for text*/}
-          {/* <span className={commune.tooltiptext}>
-            <div className={commune.arrowDown} /> */}
-          {/* Font size fontweight change */}
-          {/* <div className="col-sm-4 col-sm-push-4">
-              <FontSizeDropdown />
-              <FontWeight />
-            </div>
+          {showTextBox && <TextForm />}
 
-            <div>
-              <input type="color" className="coloured" defaultValue="#C4C4C4" />
-            </div>
-            <img src={align} alt="align-text" />
-          </span> */}
-          <TextEditForm />
+          {/* <TextEditForm /> */}
 
-          <div className="join_title">
+          <div className="join_title" onClick={handleTextEdit}>
             {/* Connect with expats and locals around the world */}
             {communityText.map((comm) => (
               <p
@@ -96,7 +91,7 @@ export const JoinCommunity = ({ contentEditable }) => {
                 style={{ ...editStyle, ...comm.style }}
                 onBlur={handleChangeText}
                 onFocus={getCurrentCommunityText}
-                onClick={handleShowForm}
+                onClick={handleTextEdit}
                 contentEditable={contentEditable}
                 suppressContentEditableWarning="true"
               >

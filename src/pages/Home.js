@@ -33,6 +33,7 @@ const Home = ({ contentEditable, getCurrentCommunityText }) => {
     fetchedTexts,
     setCurrentText,
     handleCommunityChangeText,
+    handleJoinShowForm,
   } = useContext(EditContext);
 
   // select the clicked 'place'
@@ -153,7 +154,7 @@ const Home = ({ contentEditable, getCurrentCommunityText }) => {
         <JoinCitySection />
       </section>
       <JoinCommunity
-        // onClick={handleShowForm}
+        onClick={handleJoinShowForm}
         onBlur={handleCommunityChangeText}
         contentEditable={contentEditable}
         onFocus={getCurrentCommunityText}

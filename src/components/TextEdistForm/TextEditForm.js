@@ -15,14 +15,17 @@ const TextEditForm = () => {
     setShowTextForm,
     headerID,
     currentText,
+    showJoinTextForm,
+    setShowJoinTextForm,
+    headerJoinID,
   } = useContext(EditContext);
 
   // manage display and position of popping-up forms
-  const formTextStyle = !showTextForm
+  const formTextStyle = !showJoinTextForm
     ? { display: "none" }
     : {
         position: "",
-        top: headerID === 1 ? "300px" : "400px",
+        top: headerJoinID === 1 ? "300px" : "400px",
         left: "750px",
       };
   // set the default values for drop-down lists font size and weight
@@ -64,7 +67,7 @@ const TextEditForm = () => {
       <div
         className={edit.title}
         style={formTextStyle}
-        onDoubleClick={() => setShowTextForm(false)}
+        onClick={() => setShowJoinTextForm(false)}
       >
         {/* <div className={edit.arrowDown}></div> */}
         <span>
