@@ -242,6 +242,9 @@
     outline: none;
 }
 
+
+
+
 @media (min-width: 1100px) {
     .joincity_request_city_input {
         width: 142.49px;
@@ -431,6 +434,7 @@
     justify-content: center;
     margin: 50px;
     margin-top: 179px;
+    /* border: 1px solid red; */
 }
 
 .join_info {
@@ -441,7 +445,7 @@
     justify-content: center;
 }
 
-.join_title p:first-child{
+#join_title p:first-child{
     font-style: normal;
     font-weight: 600;
     font-size: 48px;
@@ -452,7 +456,7 @@
     /* height: 106px; */
     text-align: left;
 }
-.join_title p:nth-child(2){
+#join_title p:nth-child(2){
     margin-bottom: 29px;
     font-style: normal;
     font-weight: 600;

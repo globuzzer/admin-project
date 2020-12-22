@@ -6,6 +6,10 @@ const EditContextProvider = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [showForm, setShowForm] = useState(false);
 
+  //state for edit text community section
+  const [showTextBox, setShowTextBox] = useState(false);
+    const [headerJoinID, setHeaderJoinID] = useState(null);
+
   const [showTextForm, setShowTextForm] = useState(false);
   const [headerID, setHeaderID] = useState(null);
 
@@ -29,7 +33,6 @@ const EditContextProvider = (props) => {
     },
   };
 
-
   const [fetchedTexts, setFetchedTexts] = useState([]);
   const [currentText, setCurrentText] = useState(rawText);
 
@@ -38,6 +41,7 @@ const EditContextProvider = (props) => {
 
   //state for heading and subheading for JoinCommunity
   const [communityText, setCommunityText] = useState([]);
+  //state for storing and updating data in firebase
   const [commCurrentText, setCommCurrentText] = useState(rawCommText);
 
   // add red marks around editable content
@@ -109,12 +113,12 @@ const EditContextProvider = (props) => {
 
   // change handler for Community text
   const handleCommChangeText = (e) => {
-  // fetched data update for Join Community
-  setCommCurrentText({
-    ...commCurrentText,
-    heading: e.target.innerText,
-    id: e.target.id,
-  });
+    // fetched data update for Join Community
+    setCommCurrentText({
+      ...commCurrentText,
+      heading: e.target.innerText,
+      id: e.target.id,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -128,6 +132,7 @@ const EditContextProvider = (props) => {
     // console.log('updated:', currentText.id)
     // console.log(e.target)
   };
+
   //update community text
   const handleUpdateCommText = (e) => {
     e.preventDefault();
@@ -156,6 +161,18 @@ const EditContextProvider = (props) => {
       }
     }
   };
+  const handleShowJoinForm = (e) => {
+    const parent = e.target.parentElement;
+    const sibling = e.target.nextSibling;
+
+    if (editMode) {
+      if (parent.classList.contains("joiners")) {
+        sibling ? setHeaderJoinID(1) : setHeaderJoinID(2);
+         setShowTextBox(true);
+      } 
+      console.log("Clicked");
+    }
+  };
 
   return (
     <EditContext.Provider
@@ -180,9 +197,14 @@ const EditContextProvider = (props) => {
         handleSubmitText,
         currentText,
         setCurrentText,
+        commCurrentText,
         setCommCurrentText,
         handleCommChangeText,
         handleUpdateCommText,
+        handleShowJoinForm,
+        showTextBox,
+        setShowTextForm,
+        headerJoinID,
       }}
     >
       {props.children}

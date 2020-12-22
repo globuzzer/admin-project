@@ -1,8 +1,8 @@
-import Dropdown from "./../../pages/Admin/BannerForm/Dropdown";
-import { sizes, weights, aligns } from "./../../pages/Admin/BannerForm/Data";
 import React, { useState, useContext, useEffect } from "react";
-import { EditContext } from "./../../contexts/editContext";
-import edit from "./../../pages/Admin/BannerForm/BannerForm.module.css";
+import Dropdown from "../../pages/Admin/BannerForm/Dropdown";
+import { sizes, weights, aligns } from "../../pages/Admin/BannerForm/Data";
+import { EditContext } from "../../contexts/editContext";
+import joiners from "./../TextEditForm/TextEditForm.module.css";
 
 const TextEditForm = () => {
   // values for drop-down lists
@@ -11,17 +11,15 @@ const TextEditForm = () => {
   const [textAligns] = useState(aligns);
 
   const {
-    showTextForm,
-    setShowTextForm,
-    headerID,
-    currentText,
-    showJoinTextForm,
-    setShowJoinTextForm,
     headerJoinID,
+    showTextBox,
+    setShowTextBox,
+    currentText,
+    commCurrentText,
   } = useContext(EditContext);
 
   // manage display and position of popping-up forms
-  const formTextStyle = !showJoinTextForm
+  const formTextStyle = !showTextBox
     ? { display: "none" }
     : {
         position: "",
@@ -35,41 +33,41 @@ const TextEditForm = () => {
   const [defaultAlign, setDefaultAlign] = useState("");
 
   useEffect(() => {
-    setDefaultSize(currentText.style.fontSize.substring(0, 2, -1));
-    setDefaultWeight(currentText.style.fontWeight);
-    setDefaultColor(currentText.style.color);
-    setDefaultAlign(currentText.style.textAlign);
-  }, [currentText]);
+    setDefaultSize(commCurrentText.style.fontSize.substring(0, 2, -1));
+    setDefaultWeight(commCurrentText.style.fontWeight);
+    setDefaultColor(commCurrentText.style.color);
+    setDefaultAlign(commCurrentText.style.textAlign);
+  }, [commCurrentText]);
 
   const handleColorChange = (e) => {
-    currentText.style.color = e.target.value;
+    commCurrentText.style.color = e.target.value;
     setDefaultColor(e.target.value);
   };
 
   const handleSizeChange = (e) => {
     e.preventDefault();
-    currentText.style.fontSize = e.target.value + "px";
+    commCurrentText.style.fontSize = e.target.value + "px";
     setDefaultSize(e.target.value);
   };
 
   const handleWeightChange = (e) => {
-    currentText.style.fontWeight = e.target.value;
+    commCurrentText.style.fontWeight = e.target.value;
     setDefaultWeight(e.target.value);
   };
 
   const handleAlignChange = (e) => {
-    currentText.style.textAlign = e.target.value;
+    commCurrentText.style.textAlign = e.target.value;
     setDefaultAlign(e.target.value);
   };
 
   return (
     <div>
       <div
-        className={edit.title}
+        className={joiners.title}
         style={formTextStyle}
-        onClick={() => setShowJoinTextForm(false)}
+        onDoubleClick={() => setShowTextBox(false)}
       >
-        {/* <div className={edit.arrowDown}></div> */}
+        <div className={joiners.arrowDown}></div>
         <span>
           <Dropdown
             items={fontSizes}

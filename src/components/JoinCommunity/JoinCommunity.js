@@ -19,71 +19,37 @@ import GifCard from "../GifCard/GifCard";
 import FontSizeDropdown from "../GifCard/FontDropdown/FontSizeDropdown";
 import FontWeight from "../GifCard/FontDropdown/FontWeight";
 import { EditContext } from "../../contexts/editContext";
-import TextEditForm from "../TextEdistForm/TextEditForm";
+import TextEditForm from "../TextEditForm/TextEditForm";
 import TextForm from "./TextForm";
 import { firestore } from "../../utils/firebase.utils";
+import { Fragment } from "react";
 
 export const JoinCommunity = ({ contentEditable }) => {
   //state for edit video form
   const [showVideoEdit, setVideoEdit] = useState(false);
-  //state for edit text form
-  const [showTextBox, setShowTextBox] = useState(false);
+
   //toggling edit video form
   const handleVideoEdit = () => setVideoEdit(true);
-  //toggling edit text form
-  const handleTextEdit = () => {
-    setShowTextBox(true);
-  };
 
   const { width } = GetWindowDimension();
-  const { editStyle, communityText } = useContext(EditContext);
+  const {
+    editStyle,
+    communityText,
+    handleCommChangeText,
+    handleShowJoinForm,
+    setCommCurrentText,
+  } = useContext(EditContext);
 
   // select the clicked 'text'
-  // const getCurrentCommunityText = (e) => {
-  //   const newCommunityText = communityText.filter((community) => {
-  //     return community.id === e.target.id;
-  //   });
-  //   setCommCurrentText(newCommunityText[0]);
-  // };
-
-  const rawCommText = {
-    heading: "",
-    // style: {
-    //   color: "",
-    //   fontSize: "",
-    //   fontWeight: "",
-    //   textAlign: "",
-    // },
-  };
-  //state for onChange Join Community update in UI
-  const [commCurrentText, setCommCurrentText] = useState(rawCommText);
-
-  const handleUpdateCommunity = () => {
-    firestore.collection("community").doc("ENjFz9324myr0tz0Gr94").update({
-      heading: commCurrentText.heading,
+  const getCurrentCommText = (e) => {
+    const newCommunityText = communityText.filter((community) => {
+      return community.id === e.target.id;
     });
-  };
-
-  const updateState = () => {
-    
-  };
-  // change handler for Community text
-  const handleCommChangeText = ({ target: input }) => {
-    //fetched data update for Join Community
-    // setCommCurrentText({
-    //   ...commCurrentText,
-    //   heading: e.target.innerText,
-    //   id: e.target.id,
-    // });
-
-    const newDat = { ...commCurrentText };
-    newDat[input.name] = input.value;
-    setCommCurrentText(newDat);
-    console.log("Dtata: ", newDat);
+    setCommCurrentText(newCommunityText[0]);
   };
 
   const Join = () => (
-    <section className="join">
+    <Fragment>
       <div className="join_video_container joiners" onClick={handleVideoEdit}>
         {communityText.reduce((currentValue, video) => {
           return (
@@ -106,27 +72,10 @@ export const JoinCommunity = ({ contentEditable }) => {
           );
         }, "")}
       </div>
-      <div className="join_info">
-        <div className={commune.tooltip}>
-          {showTextBox && <TextForm />}
-          {/* <TextEditForm /> */}
-        </div>
-
-        <div className="join_member_list">
-          {MemberNearYouData.map((memberData, index) => (
-            <MemberNearYou memberData={memberData} key={index} />
-          ))}
-        </div>
-        <button type="button" className="join_button">
-          <Link to="/signup" className="join_button_anchor">
-            Join us
-          </Link>
-        </button>
-      </div>
       {showVideoEdit && (
         <GifCard setVideoEdit={setVideoEdit} communityText={communityText} />
       )}
-    </section>
+    </Fragment>
   );
 
   const JoinMobile = () => (

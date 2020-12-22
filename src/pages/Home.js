@@ -15,11 +15,14 @@ import { EditContext } from "../contexts/editContext";
 import BannerForm from "./Admin/BannerForm/BannerForm";
 import FeatureBox from "../components/FeatureBox/FeatureBox";
 import { firestore } from "./../utils/firebase.utils";
-import TextEditForm from "../components/TextEdistForm/TextEditForm";
-import TextForm from "../components/JoinCommunity/TextForm";
+import TextEditForm from "../components/TextEditForm/TextEditForm";
+import MemberNearYouData from "../Data/MemberNearYouData";
+import { MemberNearYou } from "../components/MemberNearYou/MemberNearYou";
+
+import { Link } from "react-router-dom";
 import Joi from "joi";
 
-const Home = ({ contentEditable, handleTextEdit }) => {
+const Home = ({ contentEditable }) => {
   const [query, setQuery] = useState("");
   const [showFeature, setShowFeature] = useState(false);
   //state for homeValue
@@ -37,6 +40,7 @@ const Home = ({ contentEditable, handleTextEdit }) => {
     setCurrentText,
     handleCommChangeText,
     setCommCurrentText,
+    handleShowJoinForm,
   } = useContext(EditContext);
 
   // select the clicked 'place'
@@ -89,7 +93,7 @@ const Home = ({ contentEditable, handleTextEdit }) => {
   return (
     <div className="home-page">
       <BannerForm />
-      {/* <TextEditForm /> */}
+
       <LazyLoad>
         <section className="section_header" id="section_header">
           <div onClick={handleShowForm} className="headers">
@@ -164,24 +168,45 @@ const Home = ({ contentEditable, handleTextEdit }) => {
         </div>
         <JoinCitySection />
       </section>
-      <JoinCommunity />
-      <div className="join_title" onClick={handleTextEdit}>
-        {/* Connect with expats and locals around the world */}
-        {communityText.map((comm) => (
-          <p
-            key={comm.id}
-            id={comm.id}
-            name={comm.id}
-            style={{ ...editStyle, ...comm.style }}
-            onBlur={handleCommChangeText}
-            onFocus={getCurrentCommText}
-            onClick={handleTextEdit}
-            contentEditable={contentEditable}
-            suppressContentEditableWarning="true"
-          >
-            {comm.heading}
-          </p>
-        ))}
+
+      {/* <div className="tooltip">
+        {showTextBox && <TextForm />}
+       
+      </div> */}
+
+      <div className="join">
+        <JoinCommunity />
+        <div className="join_info">
+          <TextEditForm />
+          <div className="joiners" id="join_title" onClick={handleShowJoinForm}>
+            {/* Connect with expats and locals around the world */}
+            {communityText.map((comm) => (
+              <p
+                key={comm.id}
+                id={comm.id}
+                name={comm.id}
+                style={{ ...editStyle, ...comm.style }}
+                onBlur={handleCommChangeText}
+                onFocus={getCurrentCommText}
+                onClick={handleShowJoinForm}
+                contentEditable={contentEditable}
+                suppressContentEditableWarning="true"
+              >
+                {comm.heading}
+              </p>
+            ))}
+          </div>
+          <div className="join_member_list">
+            {MemberNearYouData.map((memberData, index) => (
+              <MemberNearYou memberData={memberData} key={index} />
+            ))}
+          </div>
+          <button type="button" className="join_button">
+            <Link to="/signup" className="join_button_anchor">
+              Join us
+            </Link>
+          </button>
+        </div>
       </div>
 
       <section className="featured_articles" id="featured_articles">

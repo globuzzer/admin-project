@@ -15,10 +15,10 @@ import { EditContext } from "../contexts/editContext";
 import BannerForm from "./Admin/BannerForm/BannerForm";
 import FeatureBox from "../components/FeatureBox/FeatureBox";
 import { firestore } from "./../utils/firebase.utils";
-import TextEditForm from "../components/TextEdistForm/TextEditForm";
-import TextForm from "../components/JoinCommunity/TextForm";
+import TextEditForm from "../components/TextEditForm/TextEditForm";
+import Joi from "joi";
 
-const Home = ({ contentEditable, handleTextEdit }) => {
+const Home = ({ contentEditable }) => {
   const [query, setQuery] = useState("");
   const [showFeature, setShowFeature] = useState(false);
   //state for homeValue
@@ -36,6 +36,7 @@ const Home = ({ contentEditable, handleTextEdit }) => {
     setCurrentText,
     handleCommChangeText,
     setCommCurrentText,
+    handleShowJoinForm,
   } = useContext(EditContext);
 
   // select the clicked 'place'
@@ -87,8 +88,8 @@ const Home = ({ contentEditable, handleTextEdit }) => {
 
   return (
     <div className="home-page">
-      <BannerForm />
-      {/* <TextEditForm /> */}
+      {/* <BannerForm /> */}
+
       <LazyLoad>
         <section className="section_header" id="section_header">
           <div onClick={handleShowForm} className="headers">
@@ -163,13 +164,34 @@ const Home = ({ contentEditable, handleTextEdit }) => {
         </div>
         <JoinCitySection />
       </section>
-      <JoinCommunity
-        onFocus={getCurrentCommText}
-        onClick={handleTextEdit}
-        onChange={handleCommChangeText}
-        contentEditable={contentEditable}
-        suppressContentEditableWarning="true"
-      />
+
+      {/* <div className="tooltip">
+        {showTextBox && <TextForm />}
+       
+      </div> */}
+      <div>
+        <JoinCommunity />
+        <TextEditForm />
+        <div className="joiners" id="join_title" onClick={handleShowJoinForm}>
+          {/* Connect with expats and locals around the world */}
+          {communityText.map((comm) => (
+            <p
+              key={comm.id}
+              id={comm.id}
+              name={comm.id}
+              style={{ ...editStyle, ...comm.style }}
+              onBlur={handleCommChangeText}
+              onFocus={getCurrentCommText}
+              onClick={handleShowJoinForm}
+              contentEditable={contentEditable}
+              suppressContentEditableWarning="true"
+            >
+              {comm.heading}
+            </p>
+          ))}
+        </div>
+      </div>
+
       <section className="featured_articles" id="featured_articles">
         <SectionHeader header="Featured articles" />
         <FeaturedArticlePage />

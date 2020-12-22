@@ -49,10 +49,10 @@ const AdminLanding = () => {
             <div>
               <button
                 className={styles.svrBtn}
-                onClick={
-                  // handleSubmitText
-                  handleUpdateCommText
-                }
+                onClick={(e) => {
+                  handleSubmitText(e);
+                  handleUpdateCommText(e);
+                }}
               >
                 Save it
               </button>

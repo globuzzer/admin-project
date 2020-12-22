@@ -24,6 +24,7 @@ const BannerForm = () => {
   
   // manage display and position of popping-up forms
   const formStyle = !showForm ? { display: "none" } : {};
+  
   const formTextStyle = !showTextForm
     ? { display: "none" }
     : {
