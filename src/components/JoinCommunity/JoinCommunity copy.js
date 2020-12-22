@@ -109,7 +109,28 @@ export const JoinCommunity = ({ contentEditable }) => {
       <div className="join_info">
         <div className={commune.tooltip}>
           {showTextBox && <TextForm />}
+
           {/* <TextEditForm /> */}
+
+          <div className="join_title" onClick={handleTextEdit}>
+            {/* Connect with expats and locals around the world */}
+            {communityText.map(({ heading, id }) => (
+              <p
+                key={id}
+                // id={comm.id}
+                // name={comm.id}
+                style={{ ...editStyle }}
+                onChange={handleCommChangeText}
+                // onFocus={getCurrentCommunityText}
+                onClick={handleTextEdit}
+                contentEditable={contentEditable}
+                suppressContentEditableWarning="true"
+              >
+                {heading}
+              </p>
+            ))}
+          </div>
+          <button>Update</button>
         </div>
 
         <div className="join_member_list">

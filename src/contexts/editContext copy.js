@@ -19,16 +19,6 @@ const EditContextProvider = (props) => {
       textAlign: "",
     },
   };
-  const rawCommText = {
-    heading: "",
-    style: {
-      color: "",
-      fontSize: "",
-      fontWeight: "",
-      textAlign: "",
-    },
-  };
-
 
   const [fetchedTexts, setFetchedTexts] = useState([]);
   const [currentText, setCurrentText] = useState(rawText);
@@ -38,7 +28,6 @@ const EditContextProvider = (props) => {
 
   //state for heading and subheading for JoinCommunity
   const [communityText, setCommunityText] = useState([]);
-  const [commCurrentText, setCommCurrentText] = useState(rawCommText);
 
   // add red marks around editable content
   const editStyle = editMode
@@ -108,14 +97,14 @@ const EditContextProvider = (props) => {
   };
 
   // change handler for Community text
-  const handleCommChangeText = (e) => {
-  // fetched data update for Join Community
-  setCommCurrentText({
-    ...commCurrentText,
-    heading: e.target.innerText,
-    id: e.target.id,
-  });
-  };
+  // const handleCommChangeText = (e) => {
+  //fetched data update for Join Community
+  // setCommCurrentText({
+  //   ...commCurrentText,
+  //   heading: e.target.innerText,
+  //   id: e.target.id,
+  // });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -126,16 +115,6 @@ const EditContextProvider = (props) => {
     e.preventDefault();
     firestore.collection("texts").doc(currentText.id).update(currentText);
     // console.log('updated:', currentText.id)
-    // console.log(e.target)
-  };
-  //update community text
-  const handleUpdateCommText = (e) => {
-    e.preventDefault();
-    firestore
-      .collection("community")
-      .doc(commCurrentText.id)
-      .update(commCurrentText);
-    //  console.log("updated:", commCurrentText.id);
     // console.log(e.target)
   };
 
@@ -180,9 +159,6 @@ const EditContextProvider = (props) => {
         handleSubmitText,
         currentText,
         setCurrentText,
-        setCommCurrentText,
-        handleCommChangeText,
-        handleUpdateCommText,
       }}
     >
       {props.children}

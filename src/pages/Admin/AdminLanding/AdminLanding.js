@@ -9,9 +9,12 @@ import "./AdminLanding.css";
 import { EditContext } from "../../../contexts/editContext";
 import { JoinCommunity } from "../../../components/JoinCommunity/JoinCommunity";
 const AdminLanding = () => {
-  const { editMode, handleEditMode, handleSubmitText } = useContext(
-    EditContext
-  );
+  const {
+    editMode,
+    handleEditMode,
+    handleSubmitText,
+    handleUpdateCommText,
+  } = useContext(EditContext);
 
   // const editContent = () => {
   //       document.querySelector('.editBtn').hidden = true;
@@ -44,7 +47,13 @@ const AdminLanding = () => {
             </button>
           ) : (
             <div>
-              <button className={styles.svrBtn} onClick={handleSubmitText}>
+              <button
+                className={styles.svrBtn}
+                onClick={
+                  // handleSubmitText
+                  handleUpdateCommText
+                }
+              >
                 Save it
               </button>
               <button className={styles.svrBtn}>View it</button>

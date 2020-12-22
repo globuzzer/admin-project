@@ -19,7 +19,6 @@ const BannerForm = () => {
     showTextForm,
     setShowTextForm,
     headerID,
-    handleSubmitText,
     currentText,
   } = useContext(EditContext);
   

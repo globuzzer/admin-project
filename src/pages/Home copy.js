@@ -17,7 +17,6 @@ import FeatureBox from "../components/FeatureBox/FeatureBox";
 import { firestore } from "./../utils/firebase.utils";
 import TextEditForm from "../components/TextEdistForm/TextEditForm";
 import TextForm from "../components/JoinCommunity/TextForm";
-import Joi from "joi";
 
 const Home = ({ contentEditable, handleTextEdit }) => {
   const [query, setQuery] = useState("");
@@ -164,26 +163,13 @@ const Home = ({ contentEditable, handleTextEdit }) => {
         </div>
         <JoinCitySection />
       </section>
-      <JoinCommunity />
-      <div className="join_title" onClick={handleTextEdit}>
-        {/* Connect with expats and locals around the world */}
-        {communityText.map((comm) => (
-          <p
-            key={comm.id}
-            id={comm.id}
-            name={comm.id}
-            style={{ ...editStyle, ...comm.style }}
-            onBlur={handleCommChangeText}
-            onFocus={getCurrentCommText}
-            onClick={handleTextEdit}
-            contentEditable={contentEditable}
-            suppressContentEditableWarning="true"
-          >
-            {comm.heading}
-          </p>
-        ))}
-      </div>
-
+      <JoinCommunity
+        onFocus={getCurrentCommText}
+        onClick={handleTextEdit}
+        onChange={handleCommChangeText}
+        contentEditable={contentEditable}
+        suppressContentEditableWarning="true"
+      />
       <section className="featured_articles" id="featured_articles">
         <SectionHeader header="Featured articles" />
         <FeaturedArticlePage />
