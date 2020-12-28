@@ -440,9 +440,10 @@
 .join_info {
     grid-column: span 2;
     margin-left: 114px;
-    display: flex;
+    padding-top: 4rem;
+    /* display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; */
 }
 
 #join_title p:first-child{

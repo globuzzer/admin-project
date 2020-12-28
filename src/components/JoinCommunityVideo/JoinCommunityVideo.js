@@ -1,30 +1,20 @@
 import React, { useContext, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { MemberNearYou } from "../MemberNearYou/MemberNearYou";
-import MemberNearYouData from "../../Data/MemberNearYouData";
 import { SectionHeader } from "../SectionHeader/SectionHeader";
 import { GetWindowDimension } from "../../utils/GetWindowDimension";
 import "./style.css";
-import commune from "./commune.module.css";
-//import align from "./../../assets/align.svg";
-// import arrow from "./../../assets/arrowdown.svg";
 
 import Gunjan from "../../assets/Gunjan.png";
 import Chloe from "../../assets/Chloe.png";
 import Jonathan from "../../assets/Jonathan.png";
 import Chloé from "../../assets/Asya.png";
-import { FaJournalWhills } from "react-icons/fa";
+
 import GifCard from "../GifCard/GifCard";
-import FontSizeDropdown from "../GifCard/FontDropdown/FontSizeDropdown";
-import FontWeight from "../GifCard/FontDropdown/FontWeight";
 import { EditContext } from "../../contexts/editContext";
-import TextEditForm from "../TextEditForm/TextEditForm";
-import TextForm from "./TextForm";
-import { firestore } from "../../utils/firebase.utils";
 import { Fragment } from "react";
 
-export const JoinCommunity = ({ contentEditable }) => {
+export const JoinCommunityVideo = () => {
   //state for edit video form
   const [showVideoEdit, setVideoEdit] = useState(false);
 
@@ -32,26 +22,12 @@ export const JoinCommunity = ({ contentEditable }) => {
   const handleVideoEdit = () => setVideoEdit(true);
 
   const { width } = GetWindowDimension();
-  const {
-    editStyle,
-    communityText,
-    handleCommChangeText,
-    handleShowJoinForm,
-    setCommCurrentText,
-  } = useContext(EditContext);
-
-  // select the clicked 'text'
-  const getCurrentCommText = (e) => {
-    const newCommunityText = communityText.filter((community) => {
-      return community.id === e.target.id;
-    });
-    setCommCurrentText(newCommunityText[0]);
-  };
+  const { editStyle, communityVideo } = useContext(EditContext);
 
   const Join = () => (
     <Fragment>
       <div className="join_video_container joiners" onClick={handleVideoEdit}>
-        {communityText.reduce((currentValue, video) => {
+        {communityVideo.map((video) => {
           return (
             <video
               key={video.id}
@@ -70,10 +46,10 @@ export const JoinCommunity = ({ contentEditable }) => {
               <track kind="captions" />
             </video>
           );
-        }, "")}
+        })}
       </div>
       {showVideoEdit && (
-        <GifCard setVideoEdit={setVideoEdit} communityText={communityText} />
+        <GifCard setVideoEdit={setVideoEdit} communityVideo={communityVideo} />
       )}
     </Fragment>
   );

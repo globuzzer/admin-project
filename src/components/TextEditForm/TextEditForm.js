@@ -14,7 +14,6 @@ const TextEditForm = () => {
     headerJoinID,
     showTextBox,
     setShowTextBox,
-    currentText,
     commCurrentText,
   } = useContext(EditContext);
 

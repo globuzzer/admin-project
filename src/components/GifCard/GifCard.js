@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import edit from "./gift.module.css";
 import { app, firestore } from "../../utils/firebase.utils";
 
-const GifCard = ({ communityText, setVideoEdit }) => {
+const GifCard = ({ communityVideo, setVideoEdit }) => {
   //state for gifs
   const [videos, setVideos] = useState(null);
 
@@ -21,14 +21,14 @@ const GifCard = ({ communityText, setVideoEdit }) => {
 
   //updating video in firestore
   const updateVideoItem = (id) => {
-    firestore.collection("community").doc("nGnBWSPlbHHSCqv7I8Lw").update({
+    firestore.collection("video").doc("XPiJEPjddIdj2rf7404a").update({
       gif: videos,
     });
   };
   //update video content
   const updateVideoValue = () => {
     // console.log("Updated");
-    const newVideo = { ...communityText };
+    const newVideo = { ...communityVideo };
     const id = newVideo.id;
     newVideo.gif = videos;
     setVideos(newVideo);

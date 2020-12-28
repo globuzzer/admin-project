@@ -8,7 +8,7 @@ import AuxServiceSection from "../components/AuxService/AuxServiceSection";
 import { OwnSection } from "../components/OwnSection/OwnSection";
 import { Footer } from "../components/Footer/Footer";
 import { SearchCity } from "../components/SearchCity/SearchCity";
-import { JoinCommunity } from "../components/JoinCommunity/JoinCommunity";
+import { JoinCommunityVideo } from "../components/JoinCommunityVideo/JoinCommunityVideo";
 import JoinCitySection from "../components/JoinCity/JoinCitySection";
 import FeaturedArticlePage from "../components/FeaturedArticle/FeaturedArticlePage";
 import { EditContext } from "../contexts/editContext";
@@ -50,7 +50,7 @@ const Home = ({ contentEditable }) => {
     });
     setCurrentPlace(newPlace[0]);
   };
-
+ 
   // select the clicked 'text'
   const getCurrentText = (e) => {
     const newText = fetchedTexts.filter((text) => {
@@ -169,13 +169,11 @@ const Home = ({ contentEditable }) => {
         <JoinCitySection />
       </section>
 
-      {/* <div className="tooltip">
-        {showTextBox && <TextForm />}
-       
-      </div> */}
-
       <div className="join">
-        <JoinCommunity />
+        <div>
+          <JoinCommunityVideo />
+        </div>
+
         <div className="join_info">
           <TextEditForm />
           <div className="joiners" id="join_title" onClick={handleShowJoinForm}>

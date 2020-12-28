@@ -8,7 +8,7 @@ const EditContextProvider = (props) => {
 
   //state for edit text community section
   const [showTextBox, setShowTextBox] = useState(false);
-    const [headerJoinID, setHeaderJoinID] = useState(null);
+  const [headerJoinID, setHeaderJoinID] = useState(null);
 
   const [showTextForm, setShowTextForm] = useState(false);
   const [headerID, setHeaderID] = useState(null);
@@ -41,6 +41,9 @@ const EditContextProvider = (props) => {
 
   //state for heading and subheading for JoinCommunity
   const [communityText, setCommunityText] = useState([]);
+  //state for video for JoinCommunity
+  const [communityVideo, setCommunityVideo] = useState([]);
+
   //state for storing and updating data in firebase
   const [commCurrentText, setCommCurrentText] = useState(rawCommText);
 
@@ -93,6 +96,21 @@ const EditContextProvider = (props) => {
         // console.log("community:", newCommunity);
       });
     return () => getCommunity();
+  }, []);
+
+  //fetching data for video for JoinCommunity from firestore
+  useEffect(() => {
+    const getCommunityVideo = firestore
+      .collection("video")
+      .onSnapshot((snapshot) => {
+        const newCommunityVideo = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setCommunityVideo(newCommunityVideo);
+        //console.log("community video: ", newCommunityVideo);
+      });
+    return () => getCommunityVideo();
   }, []);
 
   // change handler for place
@@ -168,9 +186,8 @@ const EditContextProvider = (props) => {
     if (editMode) {
       if (parent.classList.contains("joiners")) {
         sibling ? setHeaderJoinID(1) : setHeaderJoinID(2);
-         setShowTextBox(true);
-      } 
-      console.log("Clicked");
+        setShowTextBox(true);
+      }
     }
   };
 
@@ -178,6 +195,7 @@ const EditContextProvider = (props) => {
     <EditContext.Provider
       value={{
         communityText,
+        communityVideo,
         fetchedTexts,
         handleChange,
         handleSubmit,

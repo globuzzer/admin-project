@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import TopNav from "../TopNav/TopNav";
 import "./AdminLanding.css";
 import { EditContext } from "../../../contexts/editContext";
-import { JoinCommunity } from "../../../components/JoinCommunity/JoinCommunity";
+
+
 const AdminLanding = () => {
   const {
     editMode,
